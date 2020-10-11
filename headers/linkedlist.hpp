@@ -46,4 +46,6 @@ public:
     // operations on Nodes
     Node *createNode(int val = 0, int loc = loc::end, int customIdx = -1);
     void deleteNode(Node *node = nullptr);
+    Node* gotoNodeByIdx(int idx);
+    Node* gotoNodeByVal(int val);
 };

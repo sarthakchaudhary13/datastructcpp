@@ -4,6 +4,15 @@
 
 using namespace std;
 
+/**
+ * LinkedList class methods implementations start
+ * ----------------------------------------------
+*/
+
+/**
+ * Distructor for linked list;
+ * will free all the memory occupied by the list.
+*/
 LinkedList::~LinkedList()
 {
     Node *cn = head;
@@ -15,11 +24,23 @@ LinkedList::~LinkedList()
     }
 }
 
+// returns pointer to the head of the list
 Node *LinkedList::getHead()
 {
     return head;
 }
 
+/**
+ * method to insert Node in the list;
+ * By default it will add node at the end
+ * 
+ * params:
+ *  val -> value to be inserted default `0`
+ *  loc -> where to insert `1 = begining`; `2 = end`; `3 = custom position`
+ *  customIdx -> If `loc == 3`; then index where to insert the node.
+ * 
+ * return: returns pointer to node if created else `nullptr`
+*/
 Node *LinkedList::createNode(int val, int loc, int customIdx)
 {
     Node *n = nullptr;
@@ -67,11 +88,19 @@ Node *LinkedList::createNode(int val, int loc, int customIdx)
     return n;
 }
 
+/**
+ * delete node from list
+ * 
+ * params: pointer to node
+ * will delete whole List if called without arguments
+ * 
+ * return: `void`
+*/
 void LinkedList::deleteNode(Node *node)
 {
     if (node == nullptr)
     {
-        while(head != tail)
+        while (head != tail)
         {
             Node *tmp = head;
             delete tmp;
@@ -88,6 +117,48 @@ void LinkedList::deleteNode(Node *node)
     }
 }
 
+/**
+ * Goto node by index starting from HEAD
+ * 
+ * params: Index of Node
+ * 
+ * return: Pointer to Node
+*/
+Node *LinkedList::gotoNodeByIdx(int idx)
+{
+    assert(idx < totalNodes && idx >= 0);
+    Node *n = head;
+    while (idx != 0)
+    {
+        n = head->next;
+        idx--;
+    }
+    return n;
+}
+
+/**
+ * linear search
+ * 
+ * params: value to be searched
+ * 
+ * return: Pointer to Node
+*/
+Node *LinkedList::gotoNodeByVal(int val)
+{
+    Node *n = head;
+    while(n != nullptr && n->val != val)
+    {
+        n = n->next;
+    }
+    if(n == nullptr)
+        return nullptr;
+    else
+        return n;
+}
+/**
+ * End of LinkedList class Methods
+ * -------------------------------
+*/
 int main()
 {
 
