@@ -5,6 +5,26 @@
 using namespace std;
 
 /**
+ * Node class methods
+ * ------------------
+*/
+
+/**
+ * deleteNode- It does what it says
+ * params: None
+ * 
+ * return: None
+ */
+ 
+void Node::deleteNode()
+{
+    this->next->prev = this->prev;
+    this->prev->next = this->next;
+    delete this;
+
+}
+
+/**
  * LinkedList class methods implementations start
  * ----------------------------------------------
 */
@@ -43,6 +63,7 @@ Node *LinkedList::getHead()
 */
 Node *LinkedList::createNode(int val, int loc, int customIdx)
 {
+    //TODO refactor it into smaller functions
     Node *n = nullptr;
     if (this->head == nullptr)
     {
@@ -89,35 +110,6 @@ Node *LinkedList::createNode(int val, int loc, int customIdx)
 }
 
 /**
- * delete node from list
- * 
- * params: pointer to node
- * will delete whole List if called without arguments
- * 
- * return: `void`
-*/
-void LinkedList::deleteNode(Node *node)
-{
-    if (node == nullptr)
-    {
-        while (head != tail)
-        {
-            Node *tmp = head;
-            delete tmp;
-            head = head->next;
-        }
-        delete head;
-        head = nullptr;
-    }
-    else
-    {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
-        delete node;
-    }
-}
-
-/**
  * Goto node by index starting from HEAD
  * 
  * params: Index of Node
@@ -155,6 +147,11 @@ Node *LinkedList::gotoNodeByVal(int val)
     else
         return n;
 }
+
+void LinkedList::sort()
+{
+    
+}
 /**
  * End of LinkedList class Methods
  * -------------------------------
@@ -171,8 +168,9 @@ int main()
     while (tmp != nullptr)
     {
         cout << tmp->getVal() << endl;
+        Node* a = tmp;
         tmp = tmp->nextNode();
+        a->deleteNode();
     }
-    l.deleteNode();
     return 0;
 }

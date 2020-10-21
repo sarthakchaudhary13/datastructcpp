@@ -11,7 +11,6 @@ private:
     int val = 0;
     Node *next = nullptr;
     Node *prev = nullptr;
-    friend class LinkedList;
 
 public:
     int getVal()
@@ -28,6 +27,8 @@ public:
     {
         return prev;
     }
+    void deleteNode();
+friend class LinkedList;
 };
 
 class LinkedList
@@ -45,7 +46,8 @@ public:
 
     // operations on Nodes
     Node *createNode(int val = 0, int loc = loc::end, int customIdx = -1);
-    void deleteNode(Node *node = nullptr);
+    
     Node* gotoNodeByIdx(int idx);
     Node* gotoNodeByVal(int val);
+    void sort();
 };
