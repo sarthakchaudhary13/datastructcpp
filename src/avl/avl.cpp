@@ -58,7 +58,24 @@ Node *AvlTree::LLRotation(Node *node)
     return node_left;
 }
     Node *AvlTree::LRRotation(Node *node){
-        return nullptr;
+        Node *LNode = node->left;
+        Node *LRNode = LNode->right;
+        Node *LRNodeRchild = LRNode->right;
+        Node *LRNodeLChild = LRNode->left;
+
+        LNode->right = LRNodeLChild;
+        node->left = LRNodeRchild;
+        LRNode->left = LNode;
+        LRNode->right = node;
+
+        LNode->height = nodeHeight(LNode);
+        node->height = nodeHeight(node);
+        LRNode->height = nodeHeight(LRNode);
+
+        if (node == this->root)
+            this->root = LRNode;
+        
+        return LRNode;
     }
     Node *AvlTree::RRRotation(Node *node){
         return nullptr;
@@ -88,11 +105,11 @@ Node *AvlTree::insert(int val, Node *node)
 
     if (balanceFactor(node) == 2 && balanceFactor(node->left) == 1)
         return LLRotation(node);
-    else if (balanceFactor(node) == 2 && balanceFactor(node->right) == -1)
+    else if (balanceFactor(node) == 2 && balanceFactor(node->left) == -1)
         return LRRotation(node);
     else if (balanceFactor(node) == -2 && balanceFactor(node->right) == -1)
         return RRRotation(node);
-    else if (balanceFactor(node) == -2 && balanceFactor(node->left) == 1)
+    else if (balanceFactor(node) == -2 && balanceFactor(node->right) == 1)
         return RLRotation(node);
     return node;
 
@@ -113,12 +130,10 @@ void AvlTree::insert(int val)
 int main()
 {
     AvlTree a;
-    a.insert(30);
     a.insert(20);
     a.insert(10);
-    a.insert(9);
-    a.insert(8);
-    a.insert(7);
+    a.insert(15);
+    a.insert(16);
     return 1;
     // cout << a.root->val << a.root->left->val << a.root->right->val;
 }
